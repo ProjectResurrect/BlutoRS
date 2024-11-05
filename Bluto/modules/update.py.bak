@@ -1,5 +1,5 @@
 
-from .bluto_logging import info
+from bluto_logging import info
 import subprocess
 import re
 from termcolor import colored
@@ -19,21 +19,21 @@ def updateCheck(VERSION):
 
 	if found:
 		info('Update Availble')
-		print(colored('\nUpdate Available!', 'red'), colored('{}'.format(new_version), 'green'))
-		print(colored('Would you like to attempt to update?\n', 'green'))
+		print colored('\nUpdate Available!', 'red'), colored('{}'.format(new_version), 'green')
+		print colored('Would you like to attempt to update?\n', 'green')
 		while True:
-			answer = input('Y|N: ').lower()
+			answer = raw_input('Y|N: ').lower()
 			if answer in ('y', 'yes'):
 				update()
-				print('\n')
+				print '\n'
 				break
 			elif answer in ('n', 'no'):
-				print('\n')
+				print '\n'
 				break
 			else:
-				print('\nThe Options Are yes|no Or Y|N, Not {}'.format(answer))
+				print '\nThe Options Are yes|no Or Y|N, Not {}'.format(answer)
 	else:
-		print(colored('You are running the latest version:','green'), colored('{}\n'.format(VERSION),'blue'))
+		print colored('You are running the latest version:','green'), colored('{}\n'.format(VERSION),'blue')
 
 
 def update():
@@ -43,8 +43,8 @@ def update():
 	lines = output_check.splitlines()
 	info(lines)
 	if 'Successfully installed' in lines[:-1]:
-		print(colored('\nUpdate Successfull!', 'green'))
+		print colored('\nUpdate Successfull!', 'green')
 		sys.exit()
 	else:
-		print(colored('\nUpdate Failed, Please Check The Logs For Details', 'red'))
+		print colored('\nUpdate Failed, Please Check The Logs For Details', 'red')
 

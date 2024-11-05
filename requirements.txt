@@ -1,0 +1,9 @@
+docopt
+dnspython
+termcolor
+beautifulsoup4
+requests[security]
+pythonwhois
+lxml
+oletools
+pdfminer.six

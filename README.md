@@ -1,34 +1,34 @@
-**BLUTO**
+**BlutoRS**
+-----
+**This project is a fork of [Bluto](https://github.com/darryllane/Bluto) by Darryl Lane. The original project appears unmaintained, so this fork named BlutoRS by [ProjectResurrect](https://github.com/ProjectResurrect) aims to continue improving and maintaining it.**
 -----
 **DNS Recon | Brute Forcer | DNS Zone Transfer | DNS Wild Card Checks | DNS Wild Card Brute Forcer | Email Enumeration | Staff Enumeration | Compromised Account Enumeration | MetaData Harvesting**
  
->Author: Darryl Lane  |  Twitter: @darryllane101
+>Maintainer: ProjectResurrect  |  Email:'contact@boukhrisssaber.tn'
 
->https://github.com/darryllane/Bluto
-
-Like Bluto?
-====
-Give us a vote: https://n0where.net/dns-analysis-tool-bluto/
-
-Bluto has gone through a large code base change and various feature additions have been added since its first day on the job. Now that RandomStorm has been consumed and no longer exists, I felt it time to move the repo to a new location. So from this git push onwards Bluto will live here. I hope you enjoy the new Bluto.
+>https://github.com/ProjectResurrect/BlutoRS
 
 
-The target domain is queried for MX and NS records. Sub-domains are passively gathered via NetCraft. The target domain NS records are each queried for potential Zone Transfers. If none of them gives up their spinach, Bluto will attempt to identify if SubDomain Wild Cards are being used. If they are not Bluto will brute force subdomains using parallel sub processing on the top 20000 of the 'The Alexa Top 1 Million subdomains' If Wild Cards are in place, Bluto will still Brute Force SubDomains but using a different technique which takes roughly 4 x longer. NetCraft results are then presented individually and are then compared to the brute force results, any duplications are removed and particularly interesting results are highlighted. 
+## About ProjectResurrect
 
-Bluto now does email address enumeration based on the target domain, currently using Bing and Google search engines plus gathering data from the Email Hunter service and LinkedIn. https://haveibeenpwned.com/ is then used to identify if any email addresses have been compromised. Previously Bluto produced a 'Evidence Report' on the screen, this has now been moved off screen and into an HTML report.
+**ProjectResurrect**  revives and updates powerful, forgotten open-source security tools, helping teams defend against modern threats with proven, trusted resources.
 
-Search engine queries are configured in such a way to use a random `User Agent:` on each request and does a country look up to select the fastest Google server in relation to your egress address. Each request closes the connection in an attempt to further avoid captchas, however exsesive lookups will result in captchas (Bluto will warn you if any are identified). 
-         
-Bluto requires various other dependencies. So to make things as easy as possible, `pip` is used for the installation. This does mean you will need to have pip installed prior to attempting the Bluto install.
 
-Bluto now takes command line arguments at launch, the new options are as follows;
+## Versioning
+
+This fork continues from version `v2.4.17` of the original repository. The latest version is `v2.5.0` (details in the changelog).
+
+
+## Usage
+
+BlutoRS now takes command line arguments at launch, the new options are as follows;
 
 	-e		This uses a very large subdomain list for bruting.
 	-api	You can supply your email hunter api key here to gather a considerably larger amount of email addresses.
 	-d		Used to specify the target domain on the commandline.
 	-t		Used to set a timeout value in seconds. Default is 10
 
-**Examples:** (feel free to use this EmailHunter API Key until it is removed)
+**Examples:** (check the **Running BlutoRS** section below)
 
 	bluto -api 2b0ab19df982a783877a6b59b982fdba4b6c3669
 	bluto -e
@@ -36,51 +36,76 @@ Bluto now takes command line arguments at launch, the new options are as follows
 	bluto -d example.com -api 2b0ab19df982a783877a6b59b982fdba4b6c3669 -e
 
 
-**Pip Install Instructions**
+## Installation Instructions
 
-Note: To test if pip is already installed execute.
+**Clone the Repository**
 
-`pip -V`
+To get started, clone this repository to your local machine:
 
-(1) Mac and Kali users can simply use the following command to download and install `pip`.
+```bash
+git clone https://github.com/ProjectResurrect/BlutoRS.git
+cd BlutoRS
+```
 
-`curl https://bootstrap.pypa.io/get-pip.py -o - | python`
+**Set Up Virtual Environment (Optional)**
 
-**Bluto Install Instructions**
+It's recommended to use a virtual environment:
 
-(1) Once `pip` has successfully downloaded and installed, we can install Bluto:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+**Install Dependencies**
 
-`sudo pip install bluto`
+Install the required Python packages:
 
-(2) You should now be able to execute 'bluto' from any working directory in any terminal.
- 
-`bluto`
+```bash
+pip install -r requirements.txt
+```
 
-**Upgrade Instructions**
+**Running BlutoRS**
 
-(1) The upgrade process is as simple as;
+Ensure the main bluto script has execute permissions:
+```bash
+chmod +x bluto
 
-`sudo pip install bluto --upgrade`
+```
 
+Run BlutoRS directly from the cloned directory:
 
-**Install From Dev Branch**
+```bash
+./bluto --domain example.com
+```
 
-(1) To install from the latest development branch (maybe unstable);
+**Optional: Create a Symbolic Link for Easier Access**
 
-`sudo pip uninstall bluto`
+To use bluto from any directory, create a symbolic link:
 
-`sudo pip install git+git://github.com/darryllane/Bluto@dev`
+```bash
+sudo ln -s $(pwd)/bluto /usr/local/bin/bluto
+```
+Now, you can run bluto directly from anywhere.
 
-Change/Feature Requests
-====
-* ~~MetaData Scraping From Document Hunt On Target Domain~~
-* ~~Target Domain Parsed As Argument~~
-* Identification Of Web Portals
-* Active Document Hunting
+## Upgrade Instructions
+
+To get the latest version of BlutoRS, pull the latest changes from the repository:
+
+```bash
+git pull origin main
+```
 
 Changelog
 ====
+* Version __2.5.0__ (__05/11/2024__):
+  * Added Python 3 compatibility
+  * fixed regular expressions and packages related issues
+  * improved README
+  * Changed License to MIT
+
+Legacy Versions
+====
 * Version __2.4.7__ (__20/07/2018__):
+  * Last release by the original author
   * GeoIP lookup refactor
   
 * Version __2.3.10__ (__13/01/2017__):
@@ -106,23 +131,3 @@ Changelog
   * HTML Evidence Report Added.
   * Modulated Code Base.
   * Local Error Logging.
-
-
-**Help Section**
-
-This section contains helpful snippets.
-
-Check version of openssl being used by python
-
-	python
-	import ssl
-	ssl.OPENSSL_VERSION`
-
-Output
-
-	>>> import ssl
-	>>> ssl.OPENSSL_VERSION
-	'OpenSSL 1.0.2j  26 Sep 2016'
-	>>>
-
-Please be aware that the current version of Bluto does not support Python 3. It is a python 2.7.x application.
